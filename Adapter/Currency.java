@@ -6,17 +6,18 @@ public interface Currency {
     double fromUsd(double amountInUsd);
 
     
-    //Short currency code, e.g., "USD", "EUR".
+    //Short currency code, "USD", "EUR".
     String getCode();
 
     
-    //Symbol to display, e.g., "$", "€".
+    //Symbol to display, "$", "€".
     String getSymbol();
 
     
-    //Helper to format a USD amount directly in this currency.
+    //format USD amount directly in this currency.
     default String formatFromUsd(double amountInUsd) {
         return String.format("%s%.2f", getSymbol(), fromUsd(amountInUsd));
     }
 }
+
 
