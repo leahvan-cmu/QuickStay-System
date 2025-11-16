@@ -1,21 +1,21 @@
-Name/Type,Address,City,Bed,Bath,"Price (per night, USD)",Stay Length,Rent Status
-White Lake Cabin,23400 White Lake Ave.,Mt. Pleasant,3,2.5,230,0,FALSE
-Fire Up Suite,20614 Stone St.,Mt. Pleasant,1,1,120,0,FALSE
-Creek Cottage,22670 Woodland Dr.,Mt. Pleasant,4,2,340,0,FALSE
-Victory Resort,24800 Highland Blvd.,Mt. Pleasant,6,3.5,750,0,FALSE
-Cozy Loft,68200 Ashley St.,Midland,2,2.5,200,0,FALSE
-The Village,54940 Wildwood Dr.,Midland,8,3.5,780,0,FALSE
-The Hideaway,22589 Waverly Ave.,Mt. Pleasant,4,2.5,440,0,FALSE
-Retreat Ridge,28025 Summer Ln.,Mt. Pleasant,3,1.5,310,0,FALSE
-Rustic Ranch,23225 North St.,Mt. Pleasant,6,4,640,0,FALSE
-The Fern,22564 Waverly Ave.,Mt. Pleasant,2,1.5,240,0,FALSE
-Nature Den,27800 Cider Dr.,Mt. Pleasant,3,2,300,0,FALSE
-Relaxation Ridge,24101 Wilder Rd.,Mt. Pleasant,2,1,180,0,FALSE
-Cabin Loft,540 S Saginaw St.,Mt. Pleasant,1,1,150,0,FALSE
-The Grotto,24112 Wilder Rd.,Mt. Pleasant,3,1.5,290,0,FALSE
-Modern Studio,28221 Annsbury Dr.,Lansing,1,1,150,0,FALSE
-The Lodge,13989 Hearthstone Ln.,Grand Rapids,2,2,290,0,FALSE
-The Sand Castle,24060 Fudge St.,Mackinac Island,2,1,500,0,FALSE
-Modern Suite,20200 Grand River Ave.,Detroit,3,2,270,0,FALSE
-Boho Bungalow,27870 Cabot Dr.,Ann Arbor,3,3,360,0,FALSE
-The Luxe Lodge,45560 Cherry Ln.,Traverse City,4,2.5,425,0,FALSE
+Name/Type,Address,City,Bed,Bath,"Price (per night, USD)",Stay Length,Vacancy
+White Lake Cabin,23400 White Lake Ave.,Mt. Pleasant,3,2.5,230,0,TRUE
+Fire Up Suite,20614 Stone St.,Mt. Pleasant,1,1,120,0,TRUE
+Creek Cottage,22670 Woodland Dr.,Mt. Pleasant,4,2,340,0,TRUE
+Victory Resort,24800 Highland Blvd.,Mt. Pleasant,6,3.5,750,0,TRUE
+Cozy Loft,68200 Ashley St.,Midland,2,2.5,200,0,TRUE
+The Village,54940 Wildwood Dr.,Midland,8,3.5,780,0,TRUE
+The Hideaway,22589 Waverly Ave.,Mt. Pleasant,4,2.5,440,0,TRUE
+Retreat Ridge,28025 Summer Ln.,Mt. Pleasant,3,1.5,310,0,TRUE
+Rustic Ranch,23225 North St.,Mt. Pleasant,6,4,640,0,TRUE
+The Fern,22564 Waverly Ave.,Mt. Pleasant,2,1.5,240,0,TRUE
+Nature Den,27800 Cider Dr.,Mt. Pleasant,3,2,300,0,TRUE
+Relaxation Ridge,24101 Wilder Rd.,Mt. Pleasant,2,1,180,0,TRUE
+Cabin Loft,540 S Saginaw St.,Mt. Pleasant,1,1,150,0,TRUE
+The Grotto,24112 Wilder Rd.,Mt. Pleasant,3,1.5,290,0,TRUE
+Modern Studio,28221 Annsbury Dr.,Lansing,1,1,150,0,TRUE
+The Lodge,13989 Hearthstone Ln.,Grand Rapids,2,2,290,0,TRUE
+The Sand Castle,24060 Fudge St.,Mackinac Island,2,1,500,0,TRUE
+Modern Suite,20200 Grand River Ave.,Detroit,3,2,270,0,TRUE
+Boho Bungalow,27870 Cabot Dr.,Ann Arbor,3,3,360,0,TRUE
+The Luxe Lodge,45560 Cherry Ln.,Traverse City,4,2.5,425,0,TRUE
