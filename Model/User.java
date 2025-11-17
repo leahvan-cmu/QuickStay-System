@@ -1,41 +1,52 @@
 package Model;
 
 public class User {
-  private String userID;
-  private String name;
-  private String phone;
+  private String username;
   private String email;
+  private String currency;
+  private String password;
 
-  public User(String userID, String name, String phone, String email) {
-    this.userID = userID;
-    this.name = name;
-    this.phone = phone;
-    this.email = email;
-  }
+ 
+ //Constructor
+  public User(String username, String email, String currency, String password) {
+	this.username = username;
+	this.email = email;
+	this.currency = currency;
+	this.password = password;
+}
 
   //Getters & Setters
-
-  public String getUserID() {
-    return userID;  }
-  public void setUserID(String userID) {
-    this.userID = userID;  }
-
   public String getName() {
-    return name;  }
-  public void setName(String name) {
-    this.name = name;  }
+	return username;
+  }
 
-  public String getPhone() {
-    return phone;  }
-  public void setPhone(String phone) {
-    this.phone = phone; }
+  public void setName(String username) {
+	this.username = username;
+  }
 
-    public String getEmail() {
-      return email;  }
-    public void setEmail(String email) {
-      this.email = email;  }
-      
+  public String getEmail() {
+	return email;
+  }
+
+  public void setEmail(String email) {
+	this.email = email;
+  }
+
+  public String getCurrency() {
+	return currency;
+  }
+
+  public void setCurrency(String currency) {
+	this.currency = currency;
+  }
+
+  public String getPassword() {
+	return password;
+  }
   
+  public void setPassword(String password) {
+	this.password = password;
+  }
 
 }
 
