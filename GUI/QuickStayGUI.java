@@ -28,7 +28,7 @@ public class QuickStayGUI extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-//CODE TO GET DATA FROM FILE
+//CODE TO GET DATA FROM FILE - Chris Cantin
 ObservableList<Property> properties = FXCollections.observableArrayList();
 try (BufferedReader br = new BufferedReader(new FileReader("Resources/CurrentListings.csv"))) {
 	br.readLine();
@@ -53,8 +53,8 @@ try (BufferedReader br = new BufferedReader(new FileReader("Resources/CurrentLis
 } catch (IOException e) {
 	e.printStackTrace();
 }
-
-//STARTING SCREEN CODE
+//LOGIN SCREEN CODE - Someone Else pls
+//STARTING SCREEN CODE - Chris Cantin
 		FlowPane startPane = new FlowPane();
 		startPane.setPadding(new Insets(11,12,13,14));
 		startPane.setHgap(15);
@@ -69,26 +69,27 @@ try (BufferedReader br = new BufferedReader(new FileReader("Resources/CurrentLis
 		
 		startPane.getChildren().addAll(searchBtn, viewBtn, moneyBtn, exitBtn);
 		
-//TABLE CODE
+//TABLE CODE - Chris Cantin
 		BorderPane tablePane = new BorderPane();
 		TableView<Property> tableView = new TableView<>();
 		tableView.setEditable(true);
 		
 		
-		
-//BUTTON CODE TO GET TO INDIVIDUAL SCENES
+//MONEY CONVERTER MENU CODE - Someone else pls 
+//SEARCH MENU CODE - Someone else pls 		
+//BUTTON CODE TO GET TO INDIVIDUAL SCENES - Chris Cantin
 		viewBtn.setOnAction(event -> {
 	        Scene tableScene = new Scene(tablePane, 500, 500);
 	        primaryStage.setScene(tableScene);
 	        primaryStage.setTitle("All Listings");
 	    });
 
-//EXIT BUTTON CODE 
+//EXIT BUTTON CODE - Chris Cantin
 		exitBtn.setOnAction(event -> {
 			primaryStage.close();
 		});
 
-//SCENE CODE
+//SCENE CODE - Chris Cantin
 		Scene scene = new Scene(startPane, 500, 500);
 		
 		primaryStage.setTitle("QuickStay");
