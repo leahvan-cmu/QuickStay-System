@@ -1,6 +1,12 @@
 package GUI;
 
+import Model.Property;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -21,7 +27,33 @@ public class QuickStayGUI extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
+
+//CODE TO GET DATA FROM FILE
+ObservableList<Property> properties = FXCollections.observableArrayList();
+try (BufferedReader br = new BufferedReader(new FileReader("Resources/CurrentListings.csv"))) {
+	br.readLine();
+
+	String line;	        
+		            
+	while ((line = br.readLine()) != null) {	                           
+		String[] values = line.split(",");
+		if (values.length == 8) {
+			String name = values[0].trim();
+			String address = values[1].trim();
+			String city = values[2].trim();
+			int bedroom = Integer.parseInt(values[3].trim());
+			double bathroom = Double.parseDouble(values[4].trim());
+			double price = Double.parseDouble(values[5].trim());
+			int stayLength = Integer.parseInt(values[6].trim());
+			boolean isAvailable = Boolean.parseBoolean(values[7].trim());
+
+			properties.add(new Property(name, address, city, bedroom, bathroom, price, stayLength, isAvailable));
+		}
+}
+} catch (IOException e) {
+	e.printStackTrace();
+}
+
 //STARTING SCREEN CODE
 		FlowPane startPane = new FlowPane();
 		startPane.setPadding(new Insets(11,12,13,14));
@@ -39,7 +71,7 @@ public class QuickStayGUI extends Application {
 		
 //TABLE CODE
 		BorderPane tablePane = new BorderPane();
-		TableView<String> tableView = new TableView<>();
+		TableView<Property> tableView = new TableView<>();
 		tableView.setEditable(true);
 		
 		

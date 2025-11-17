@@ -6,13 +6,13 @@ public class Property {
     private String address;
     private String city;
     private int bedroom;
-    private int bathroom;
+    private double bathroom;
     private double price;
     private int stayLength;
     private boolean isAvailable;
 
     // Property constructors
-    public Property(String name, String address, String city, int bedroom, int bathroom, double price, int stayLength,
+    public Property(String name, String address, String city, int bedroom, double bathroom, double price, int stayLength,
             boolean isAvailable) {
         this.name = name;
         this.address = address;
@@ -53,7 +53,7 @@ public class Property {
         return bedroom;
     }
 
-    public int getBathroom() {
+    public double getBathroom() {
         return bathroom;
     }
 
@@ -107,4 +107,5 @@ public String toString() {
             + isAvailable;
 
 
+}
 }

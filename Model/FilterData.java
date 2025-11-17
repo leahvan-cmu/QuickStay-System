@@ -62,10 +62,11 @@ public class FilterData {
   public boolean getVacancy() {
     return vacancy;  }
   public void setVacancy(boolean vacancy) {
-    this.vacancy = vacancy;
+    this.vacancy = vacancy; }
 
     public String getType() {
       return type;  }
+
     public void setType(String type) {
       this.type = type;  }
 }
