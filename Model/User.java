@@ -6,7 +6,7 @@ public class User {
   private String phone;
   private String email;
 
-  public User(String userID, String name, String phone, email) {
+  public User(String userID, String name, String phone, String email) {
     this.userID = userID;
     this.name = name;
     this.phone = phone;
@@ -28,7 +28,7 @@ public class User {
   public String getPhone() {
     return phone;  }
   public void setPhone(String phone) {
-    this.phone = phone;
+    this.phone = phone; }
 
     public String getEmail() {
       return email;  }

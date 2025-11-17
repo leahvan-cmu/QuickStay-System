@@ -19,7 +19,7 @@ public class TimeData {
 
     public int getDay() {
         return day;  }
-    public void setMonth(int month) {
+    public void setDay(int day) {
         this.month = month;  }
 
     public int getYear() {
@@ -35,5 +35,5 @@ public class TimeData {
 }
 
 
-}
+
 
