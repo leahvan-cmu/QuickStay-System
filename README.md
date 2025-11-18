@@ -12,6 +12,9 @@
 -Edit account screen?
   --Change password
   --Switch currency
+-Table set up
+  --do we want to let the table be fully editable?
+  --Only edit vacancy?
 -library push?
   --Get some good work done
 -Lock in?
