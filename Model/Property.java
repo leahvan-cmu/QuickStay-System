@@ -85,7 +85,7 @@ public class Property {
         this.bedroom = bedroom;
     }
 
-    public void setBathroom(int bathroom) {
+    public void setBathroom(double bathroom) {
         this.bathroom = bathroom;
     }
 
