@@ -1,6 +1,8 @@
 11/19/25 bullet points
 
 -What is already done?
+-Naming conventions
+  --What are we calling things in this assignment
 -What is our planned screens?
   --Ethan wants to take the project screen by screen, probably easiest way to stay organized
 -Save account data file
@@ -19,5 +21,7 @@
   --Probably a lot faster to understand what we are trying to do and bounce ideas
   --Connect our code and see if it runs in real time
 -screw Github, "HOW THE **** DO I ADD A FOLDER!"
+  --How do I rebuild the code in Eclipse
+  --I really hate github
 
 

@@ -13,29 +13,38 @@ public class User {
     this.email = email;
   }
 
-  //Getters & Setters
+  // Getters & Setters
 
   public String getUserID() {
-    return userID;  }
+    return userID;
+  }
+
   public void setUserID(String userID) {
-    this.userID = userID;  }
+    this.userID = userID;
+  }
 
   public String getName() {
-    return name;  }
+    return name;
+  }
+
   public void setName(String name) {
-    this.name = name;  }
+    this.name = name;
+  }
 
   public String getPhone() {
-    return phone;  }
-  public void setPhone(String phone) {
-    this.phone = phone; }
+    return phone;
+  }
 
-    public String getEmail() {
-      return email;  }
-    public void setEmail(String email) {
-      this.email = email;  }
-      
-  
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
 }
-
