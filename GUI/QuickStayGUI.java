@@ -32,58 +32,12 @@ public class QuickStayGUI extends Application {
 		
 	}
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-
-//CODE TO GET DATA FROM FILE - Chris Cantin
-ObservableList<Property> properties = FXCollections.observableArrayList();
-try (BufferedReader br = new BufferedReader(new FileReader("Resources/CurrentListings.csv"))) {
-	br.readLine();
-
-	String line;	        
-		            
-	while ((line = br.readLine()) != null) {	                           
-		String[] values = line.split(",");
-		if (values.length == 8) {
-			String name = values[0].trim();
-			String address = values[1].trim();
-			String city = values[2].trim();
-			int bedroom = Integer.parseInt(values[3].trim());
-			double bathroom = Double.parseDouble(values[4].trim());
-			double price = Double.parseDouble(values[5].trim());
-			int stayLength = Integer.parseInt(values[6].trim());
-			boolean isAvailable = Boolean.parseBoolean(values[7].trim());
-
-			properties.add(new Property(name, address, city, bedroom, bathroom, price, stayLength, isAvailable));
-		}
-}
-} catch (IOException e) {
-	e.printStackTrace();
-}
-//LOGIN SCREEN CODE - Ethan
-//STARTING SCREEN CODE - Chris Cantin
-		FlowPane startPane = new FlowPane();
-		startPane.setPadding(new Insets(11,12,13,14));
-		startPane.setHgap(15);
-		startPane.setVgap(5);
-		
-		startPane.setAlignment(Pos.CENTER);
-		
-		Button searchBtn = new Button("Search");
-		Button viewBtn = new Button("View All Listings");
-		Button moneyBtn = new Button("Money Converter");
-		Button exitBtn = new Button("Exit");
-		Button goBackBtn = new Button("Go Back");
-		
-		//if you're looking at this do NOT add go back button to this code pls. just declaring it here for now.
-		startPane.getChildren().addAll(searchBtn, viewBtn, moneyBtn, exitBtn);
-		
-		
-//TABLE CODE - Chris Cantin
-		BorderPane tablePane = new BorderPane();
+	//REUSABLE TABLE CODE FOR SEARCH AND VIEW ALL LISTINGS - Chris Cantin
+	public static TableView<Property> tableMaker(ObservableList<Property> properties) {
 		TableView<Property> tableView = new TableView<>();
 		tableView.setEditable(true);
-
+		tableView.setItems(properties);
+		
 		TableColumn<Property, String> colName = new TableColumn<>("Name");
 			colName.setCellValueFactory(new PropertyValueFactory<>("name"));
 			colName.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -168,21 +122,73 @@ try (BufferedReader br = new BufferedReader(new FileReader("Resources/CurrentLis
 
 			tableView.getColumns().addAll(colName, colAddress, colCity, colBedroom, colBathroom, colPrice, colStayLength, colAvailable);
 
-			tableView.setItems(properties);
+			return tableView;
+	}
+	@Override
+	public void start(Stage primaryStage) throws Exception {
 
-			HBox buttonPane = new HBox(10);
-			buttonPane.getChildren().addAll(goBackBtn);
-			buttonPane.setAlignment(Pos.CENTER);
+//CODE TO GET DATA FROM FILE - Chris Cantin
+ObservableList<Property> properties = FXCollections.observableArrayList();
+try (BufferedReader br = new BufferedReader(new FileReader("Resources/CurrentListings.csv"))) {
+	br.readLine();
+
+	String line;	        
+		            
+	while ((line = br.readLine()) != null) {	                           
+		String[] values = line.split(",");
+		if (values.length == 8) {
+			String name = values[0].trim();
+			String address = values[1].trim();
+			String city = values[2].trim();
+			int bedroom = Integer.parseInt(values[3].trim());
+			double bathroom = Double.parseDouble(values[4].trim());
+			double price = Double.parseDouble(values[5].trim());
+			int stayLength = Integer.parseInt(values[6].trim());
+			boolean isAvailable = Boolean.parseBoolean(values[7].trim());
+
+			properties.add(new Property(name, address, city, bedroom, bathroom, price, stayLength, isAvailable));
+		}
+}
+} catch (IOException e) {
+	e.printStackTrace();
+}
+//LOGIN SCREEN CODE - Ethan
+//STARTING SCREEN CODE - Chris Cantin
+FlowPane startPane = new FlowPane();
+startPane.setPadding(new Insets(11,12,13,14));
+startPane.setHgap(15);
+startPane.setVgap(5);
+
+startPane.setAlignment(Pos.CENTER);
+
+Button searchBtn = new Button("Search");
+Button viewBtn = new Button("View All Listings");
+Button moneyBtn = new Button("Money Converter");
+Button exitBtn = new Button("Exit");
+Button goBackBtn1 = new Button("Go Back");
+
+//if you're looking at this do NOT add go back button to this code pls. just declaring it here for now.
+startPane.getChildren().addAll(searchBtn, viewBtn, moneyBtn, exitBtn);
+
+
+//VIEW ALL LISTINGS - Chris Cantin
+	BorderPane tablePane = new BorderPane();
+	TableView<Property> tableView = tableMaker(properties);
+
+	HBox buttonPane = new HBox(10);
+	buttonPane.getChildren().addAll(goBackBtn1);
+	buttonPane.setAlignment(Pos.CENTER);
 			
-			tablePane.setCenter(tableView);
-			tablePane.setBottom(buttonPane);
+	tablePane.setCenter(tableView);
+	tablePane.setBottom(buttonPane);
+
+	Scene tableScene = new Scene(tablePane, 500, 500);
 		
 		
 //MONEY CONVERTER MENU CODE - Someone else pls 
 //SEARCH MENU CODE - Someone else pls 		
 //BUTTON CODE TO GET TO INDIVIDUAL SCENES - Chris Cantin
 		viewBtn.setOnAction(event -> {
-	        Scene tableScene = new Scene(tablePane, 500, 500);
 	        primaryStage.setScene(tableScene);
 	        primaryStage.setTitle("All Listings");
 	    });
@@ -191,18 +197,19 @@ try (BufferedReader br = new BufferedReader(new FileReader("Resources/CurrentLis
 		exitBtn.setOnAction(event -> {
 			primaryStage.close();
 		});
-//GO BACK BUTTON CODE - Chris Cantin
-		goBackBtn.setOnAction(event -> {
-			//hello everypony
-		});
 
 //SCENE CODE - Chris Cantin
-		Scene scene = new Scene(startPane, 500, 500);
+		Scene startScene = new Scene(startPane, 500, 500);
 		
 		primaryStage.setTitle("QuickStay");
-		primaryStage.setScene(scene);
+		primaryStage.setScene(startScene);
 		primaryStage.show();
-		
+
+//GO BACK BUTTON CODE - Chris Cantin
+goBackBtn1.setOnAction(event -> {
+	primaryStage.setScene(startScene);
+	
+});
 		
 	}
 

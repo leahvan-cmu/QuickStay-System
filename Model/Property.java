@@ -101,7 +101,8 @@ public class Property {
         this.isAvailable = isAvailable;
     }
 
-public String toString() {
+    @Override
+    public String toString() {
     return "Property Name - " + name + " Address: " + address + ", " + city + ", " + bedroom
             + " Bedrooms " + bathroom + " Bathrooms $" + price + " per night (USD), Vacancy: "
             + isAvailable;
