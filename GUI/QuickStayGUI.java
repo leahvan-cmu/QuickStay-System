@@ -165,12 +165,11 @@ startPane.setAlignment(Pos.CENTER);
 
 Button searchBtn = new Button("Search");
 Button viewBtn = new Button("View All Listings");
-Button moneyBtn = new Button("Money Converter");
 Button exitBtn = new Button("Exit");
 Button goBackBtn1 = new Button("Go Back");
 
 //if you're looking at this do NOT add go back button to this code pls. just declaring it here for now.
-startPane.getChildren().addAll(searchBtn, viewBtn, moneyBtn, exitBtn);
+startPane.getChildren().addAll(searchBtn, viewBtn, exitBtn);
 
 
 //VIEW ALL LISTINGS - Chris Cantin
