@@ -153,6 +153,8 @@ try (BufferedReader br = new BufferedReader(new FileReader("Resources/CurrentLis
 	e.printStackTrace();
 }
 //LOGIN SCREEN CODE - Ethan
+
+
 //STARTING SCREEN CODE - Chris Cantin
 FlowPane startPane = new FlowPane();
 startPane.setPadding(new Insets(11,12,13,14));
@@ -198,7 +200,7 @@ startPane.getChildren().addAll(searchBtn, viewBtn, moneyBtn, exitBtn);
 			primaryStage.close();
 		});
 
-//SCENE CODE - Chris Cantin
+//SCENE CODE (when Login Menu is finished, change the primaryStage startScene call to whatever you name the Login Scene)
 		Scene startScene = new Scene(startPane, 500, 500);
 		
 		primaryStage.setTitle("QuickStay");
