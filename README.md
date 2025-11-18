@@ -15,6 +15,12 @@
 -Table set up
   --do we want to let the table be fully editable?
   --Only edit vacancy?
+-Methods/classes we should to add
+  --claimProperty method for Property class
+    ---Make BookingService class handle this?
+  --FilterDataBuilder class?
+  --plans for TimeData class
+  --What do we want to do with Service classes?
 -library push?
   --Get some good work done
 -Lock in?
