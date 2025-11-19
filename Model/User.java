@@ -6,34 +6,50 @@ public class User {
   private String currency;
   private String password;
 
-
- //Constructor
+  // Constructor
   public User(String username, String email, String currency, String password) {
-	this.username = username;
-	this.email = email;
-	this.currency = currency;
-	this.password = password;
-}
+    this.username = username;
+    this.email = email;
+    this.currency = currency;
+    this.password = password;
+  }
 
-  //Getters & Setters
+  // Getters & Setters
   public String getName() {
-	  return username;  }
+    return username;
+  }
+
   public void setName(String username) {
-  	this.username = username;  }
+    this.username = username;
+  }
 
   public String getEmail() {
-  	return email;  }
+    return email;
+  }
+
   public void setEmail(String email) {
-  	this.email = email;  }
+    this.email = email;
+  }
 
   public String getCurrency() {
-	  return currency;  }
+    return currency;
+  }
+
   public void setCurrency(String currency) {
-	  this.currency = currency; }
+    this.currency = currency;
+  }
 
   public String getPassword() {
-  	return password;  }
+    return password;
+  }
+
   public void setPassword(String password) {
-    this.password = password;  }
+    this.password = password;
+  }
+
+  public String getUserID() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getUserID'");
+  }
 
 }
