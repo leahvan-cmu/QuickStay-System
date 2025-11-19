@@ -35,80 +35,39 @@ public class QuickStayGUI extends Application {
 	//REUSABLE TABLE CODE FOR SEARCH AND VIEW ALL LISTINGS - Chris Cantin
 	public static TableView<Property> tableMaker(ObservableList<Property> properties) {
 		TableView<Property> tableView = new TableView<>();
-		tableView.setEditable(true);
 		tableView.setItems(properties);
 		
 		TableColumn<Property, String> colName = new TableColumn<>("Name");
 			colName.setCellValueFactory(new PropertyValueFactory<>("name"));
 			colName.setCellFactory(TextFieldTableCell.forTableColumn());
-			colName.setOnEditCommit(e -> {
-				Property property = e.getRowValue();
-				String newName = e.getNewValue();
-				property.setName(newName);
-			});
 
 			TableColumn<Property, String> colAddress = new TableColumn<>("Address");
 			colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
 			colAddress.setCellFactory(TextFieldTableCell.forTableColumn());
-			colAddress.setOnEditCommit(e -> {
-				Property property = e.getRowValue();
-				String newAddress = e.getNewValue();
-				property.setAddress(newAddress);
-			});
 
 			TableColumn<Property, String> colCity = new TableColumn<>("City");
 			colCity.setCellValueFactory(new PropertyValueFactory<>("city"));
 			colCity.setCellFactory(TextFieldTableCell.forTableColumn());
-			colCity.setOnEditCommit(e -> {
-				Property property = e.getRowValue();
-				String newCity = e.getNewValue();
-				property.setCity(newCity);
-			});
 
 			TableColumn<Property, Integer> colBedroom = new TableColumn<>("# of Bedrooms");
 			colBedroom.setCellValueFactory(new PropertyValueFactory<>("bedroom"));
 			colBedroom.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-			colBedroom.setOnEditCommit(e -> {
-				Property property = e.getRowValue();
-				int newBedroom = e.getNewValue();
-				property.setBedroom(newBedroom);
-			});
 
 			TableColumn<Property, Double> colBathroom = new TableColumn<>("# of Bathrooms");
 			colBathroom.setCellValueFactory(new PropertyValueFactory<>("bathroom"));
 			colBathroom.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
-			colBathroom.setOnEditCommit(e -> {
-				Property property = e.getRowValue();
-				double newBathroom = e.getNewValue();
-				property.setBathroom(newBathroom);
-			});
 
 			TableColumn<Property, Double> colPrice = new TableColumn<>("Price");
 			colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
 			colPrice.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
-			colPrice.setOnEditCommit(e -> {
-				Property property = e.getRowValue();
-				double newPrice = e.getNewValue();
-				property.setPrice(newPrice);
-			});
 
 			TableColumn<Property, Integer> colStayLength = new TableColumn<>("Length of Stay");
 			colStayLength.setCellValueFactory(new PropertyValueFactory<>("stayLength"));
 			colStayLength.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-			colStayLength.setOnEditCommit(e -> {
-				Property property = e.getRowValue();
-				int newStayLength = e.getNewValue();
-				property.setStayLength(newStayLength);
-			});
 
 			TableColumn<Property, Boolean> colAvailable = new TableColumn<>("Available?");
 			colAvailable.setCellValueFactory(new PropertyValueFactory<>("isAvailable"));
             colAvailable.setCellFactory(CheckBoxTableCell.forTableColumn(colAvailable));
-			colAvailable.setOnEditCommit(e -> {
-				Property property = e.getRowValue();
-				boolean newAvailable = e.getNewValue();
-				property.setAvailable(newAvailable);
-			});
 
 
 			colName.setPrefWidth(100);
