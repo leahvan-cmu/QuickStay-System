@@ -47,9 +47,11 @@ public class User {
     this.password = password;
   }
 
-  public String getUserID() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getUserID'");
+  public String getUsername() {
+    return username;
+  }
+  public void setUsername(String usernmae) {
+    this.username = username;
   }
 
 }
