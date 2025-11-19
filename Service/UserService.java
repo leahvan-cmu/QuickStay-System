@@ -42,5 +42,15 @@ public class UserService {
     return false;
   }
 
+  public boolean changePassword(String username, String oldPassword, String newPassword) {
+    User user = getUserByID(username);
+    if(user != null && user.getPassword().equals(oldPassword) {
+      user.setPassword(newPassword);
+      return true;
+    }
+    return false;
+  }
+
 }
+
 
