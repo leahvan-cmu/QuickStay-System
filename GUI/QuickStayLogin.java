@@ -24,7 +24,7 @@ public class QuickStayLogin extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Image image = new Image("./QuickStayImage.png", 150, 150, true, true);
+        Image image = new Image("Resources/QuickStayImage.png", 150, 150, true, true);
         ImageView imageView = new ImageView(image);
         imageView.setStyle("-fx-border-color: red;");
 
