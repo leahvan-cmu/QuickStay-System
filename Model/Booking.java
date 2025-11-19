@@ -48,9 +48,10 @@ public class Booking {
     // toString method
     public String toString() {
         return "Booking Details:" +
-                "\nUserID: " + user.getUserID() +
+                "\nUserID: " + user.getUsername() +
                 "\nProperty: " + property.getName() +
                 "\nDays: " + daysBooked +
                 "\nTotal Cost: $" + totalPrice;
     }
 }
+
