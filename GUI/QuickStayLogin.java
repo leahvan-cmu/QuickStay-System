@@ -1,4 +1,4 @@
-package Test2;
+package GUI;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -171,3 +171,4 @@ public class QuickStayLogin extends Application {
         launch(args);
     }
 }
+
