@@ -7,6 +7,8 @@ public class Booking {
     private double totalPrice;
 
     public Booking(Property property, User user, int days) {
+        // if the property is not available or if days is less than or equal to 0, throw
+        // an exception
         if (!property.isAvailable()) {
             throw new IllegalStateException("Property is not available!");
         }
@@ -22,6 +24,7 @@ public class Booking {
         property.setAvailable(false);
     }
 
+    // Getters for user, property, daysBooked, totalPrice and setter for daysBooked
     public User getUser() {
         return user;
     }
@@ -30,12 +33,16 @@ public class Booking {
         return property;
     }
 
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
     public int getDays() {
         return daysBooked;
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
+    public void setDays(int days) {
+        this.daysBooked = days;
     }
 
     // toString method

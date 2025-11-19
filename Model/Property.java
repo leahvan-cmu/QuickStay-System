@@ -12,7 +12,8 @@ public class Property {
     private boolean isAvailable;
 
     // Property constructors
-    public Property(String name, String address, String city, int bedroom, double bathroom, double price, int stayLength,
+    public Property(String name, String address, String city, int bedroom, double bathroom, double price,
+            int stayLength,
             boolean isAvailable) {
         this.name = name;
         this.address = address;
@@ -101,12 +102,11 @@ public class Property {
         this.isAvailable = isAvailable;
     }
 
-    @Override
+    // toString method
     public String toString() {
-    return "Property Name - " + name + " Address: " + address + ", " + city + ", " + bedroom
-            + " Bedrooms " + bathroom + " Bathrooms $" + price + " per night (USD), Vacancy: "
-            + isAvailable;
+        return "Property Name - " + name + " Address: " + address + ", " + city + ", " + bedroom
+                + " Bedrooms " + bathroom + " Bathrooms $" + price + " per night (USD), Vacancy: "
+                + isAvailable;
 
-
-}
+    }
 }
