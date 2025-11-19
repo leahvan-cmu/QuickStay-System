@@ -25,7 +25,7 @@ public class UserService {
         return users;
     }
 
-    // Get user by ID (username)
+    // Get user by ID 
     public User getUserByID(String username) {
         for (User user : users) {
             if (user.getUsername().equals(username)) {
@@ -67,3 +67,4 @@ public class UserService {
         return false;
     }
 }
+
