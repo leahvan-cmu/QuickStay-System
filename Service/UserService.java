@@ -3,7 +3,7 @@ package Service;
 public class UserService {
   private ObservableList<User> users;
 
-  public User createUser(String username, String password, String phone, String email) {
+  public User createUser(String username, String password, String email, String currency) {
     User user = new User(username, password, currency, email);
     users.add(user);
     return user;
@@ -52,5 +52,6 @@ public class UserService {
   }
 
 }
+
 
 
