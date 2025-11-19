@@ -1,4 +1,4 @@
-package GUI;
+package Test2;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -24,7 +24,7 @@ public class QuickStayLogin extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Image image = new Image("Resources/QuickStayImage.png", 150, 150, true, true);
+        Image image = new Image("./QuickStayImage.png", 350, 350, true, true);
         ImageView imageView = new ImageView(image);
         imageView.setStyle("-fx-border-color: red;");
 
@@ -33,9 +33,14 @@ public class QuickStayLogin extends Application {
         PasswordField txtPassword = new PasswordField();
 
         GridPane gridPane = new GridPane();
-        gridPane.add(new Label("User Name"), 0, 0);
+        Label lblUser = new Label("User Name");
+        lblUser.setStyle("-fx-text-fill: #D4AF37; -fx-font-weight: bold;");
+        gridPane.add(lblUser, 0, 0);
         gridPane.add(txtUserName, 1, 0);
-        gridPane.add(new Label("Password"), 0, 1);
+        
+        Label lblPass = new Label("Password");
+        lblPass.setStyle("-fx-text-fill: #D4AF37; -fx-font-weight: bold;");
+        gridPane.add(lblPass, 0, 1);
         gridPane.add(txtPassword, 1, 1);
 
         Button btnLogin = new Button("Login");
@@ -58,10 +63,10 @@ public class QuickStayLogin extends Application {
         pane.setTop(new StackPane(imageView));
         pane.setBottom(new StackPane(new Label("Copyright @ 2025. All rights reserved to CMU.")));
         pane.setCenter(new StackPane(gridPane));
+        
+        pane.setStyle("-fx-background-color: #111927;");
 
-        pane.setStyle("-fx-background: white;");
-
-        Scene scene = new Scene(pane, 350, 320);
+        Scene scene = new Scene(pane, 500, 500);
 
         primaryStage.setTitle("QuickStay");
         primaryStage.setScene(scene);
@@ -171,4 +176,3 @@ public class QuickStayLogin extends Application {
         launch(args);
     }
 }
-
