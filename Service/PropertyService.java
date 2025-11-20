@@ -35,4 +35,17 @@ public class PropertyService {
         return availableProperties;
     }
 
+    /*
+     * Searches for properties by name that are available.
+     */
+    public List<Property> searchAvailableProperties(String query) {
+        List<Property> results = new ArrayList<>();
+        for (Property p : properties) {
+            if (p.isAvailable() &&
+                    p.getName().toLowerCase().contains(query.toLowerCase())) {
+                results.add(p);
+            }
+        }
+        return results;
+    }
 }
