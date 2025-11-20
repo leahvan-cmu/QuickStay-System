@@ -144,8 +144,10 @@ Button searchBtn = new Button("Search");
 Button viewBtn = new Button("View All Listings");
 Button exitBtn = new Button("Exit");
 Button goBackBtn1 = new Button("Go Back");
+Button myBookingsBtn = new Button("View My Bookings");
+Button editAccountBtn = new Button("Edit Account");
 
-startPane.getChildren().addAll(searchBtn, viewBtn, exitBtn);
+startPane.getChildren().addAll(searchBtn, viewBtn, myBookingsBtn, editAccountBtn, exitBtn);
 startScene = new Scene(startPane, 500, 500);
 
 //VIEW ALL LISTINGS - Chris Cantin

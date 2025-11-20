@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class UserStorage {
 
-    private static final String USER_FILE = "users.txt";
+    private static final String USER_FILE = "Resources/users.txt";
 
     // Register a new user. Returns true if success, false if username already exists.
     public static boolean registerUser(String username, String password, String email, String userCurrency) {
