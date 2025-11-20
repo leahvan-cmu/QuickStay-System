@@ -4,7 +4,6 @@ import Model.Property;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -24,12 +23,33 @@ import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
 
-public class QuickStayGUI extends Application {
+public class QuickStayGUI {
 
-	public static void main(String[] args) {
+	private Scene startScene;
+    private Scene viewAllScene;
 
-		launch(args);
-		
+	public Scene getStartScene() {
+		return startScene;
+	}
+
+	public void setStartScene(Scene startScene) {
+		this.startScene = startScene;
+	}
+
+	public Scene getViewAllScene() {
+		return viewAllScene;
+	}
+
+	public void setViewAllScene(Scene viewAllScene) {
+		this.viewAllScene = viewAllScene;
+	}
+	
+	
+
+	public QuickStayGUI(Scene startScene, Scene viewAllScene) {
+		super();
+		this.startScene = startScene;
+		this.viewAllScene = viewAllScene;
 	}
 
 	//REUSABLE TABLE CODE FOR SEARCH AND VIEW ALL LISTINGS - Chris Cantin
@@ -83,8 +103,8 @@ public class QuickStayGUI extends Application {
 
 			return tableView;
 	}
-	@Override
-	public void start(Stage primaryStage) throws Exception {
+
+public QuickStayGUI(Stage primaryStage) {
 
 //CODE TO GET DATA FROM FILE - Chris Cantin
 ObservableList<Property> properties = FXCollections.observableArrayList();
@@ -111,8 +131,6 @@ try (BufferedReader br = new BufferedReader(new FileReader("Resources/CurrentLis
 } catch (IOException e) {
 	e.printStackTrace();
 }
-//LOGIN SCREEN CODE - Ethan
-
 
 //STARTING SCREEN CODE - Chris Cantin
 FlowPane startPane = new FlowPane();
@@ -126,10 +144,11 @@ Button searchBtn = new Button("Search");
 Button viewBtn = new Button("View All Listings");
 Button exitBtn = new Button("Exit");
 Button goBackBtn1 = new Button("Go Back");
+Button myBookingsBtn = new Button("View My Bookings");
+Button editAccountBtn = new Button("Edit Account");
 
-//if you're looking at this do NOT add go back button to this code pls. just declaring it here for now.
-startPane.getChildren().addAll(searchBtn, viewBtn, exitBtn);
-
+startPane.getChildren().addAll(searchBtn, viewBtn, myBookingsBtn, editAccountBtn, exitBtn);
+startScene = new Scene(startPane, 500, 500);
 
 //VIEW ALL LISTINGS - Chris Cantin
 	BorderPane tablePane = new BorderPane();
@@ -143,10 +162,7 @@ startPane.getChildren().addAll(searchBtn, viewBtn, exitBtn);
 	tablePane.setBottom(buttonPane);
 
 	Scene tableScene = new Scene(tablePane, 500, 500);
-		
-		
-//MONEY CONVERTER MENU CODE - Someone else pls 
-//SEARCH MENU CODE - Someone else pls 		
+	
 //BUTTON CODE TO GET TO INDIVIDUAL SCENES - Chris Cantin
 		viewBtn.setOnAction(event -> {
 	        primaryStage.setScene(tableScene);
@@ -157,13 +173,6 @@ startPane.getChildren().addAll(searchBtn, viewBtn, exitBtn);
 		exitBtn.setOnAction(event -> {
 			primaryStage.close();
 		});
-
-//SCENE CODE (when Login Menu is finished, change the primaryStage startScene call to whatever you name the Login Scene)
-		Scene startScene = new Scene(startPane, 500, 500);
-		
-		primaryStage.setTitle("QuickStay");
-		primaryStage.setScene(startScene);
-		primaryStage.show();
 
 //GO BACK BUTTON CODE - Chris Cantin
 goBackBtn1.setOnAction(event -> {

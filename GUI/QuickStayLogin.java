@@ -81,7 +81,9 @@ public class QuickStayLogin extends Application {
 
             if (UserStorage.validateLogin(username, password)) {
                
-                // FIXME open main QuickStay screen here
+                QuickStayGUI gui = new QuickStayGUI(primaryStage);
+                primaryStage.setScene(gui.getStartScene());
+                primaryStage.setTitle("QuickStay - Home");
             } else {
                 showAlert(AlertType.ERROR, "Login Failed", "Invalid username or password.");
             }
