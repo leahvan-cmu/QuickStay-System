@@ -12,17 +12,15 @@ public class Property {
     private boolean isAvailable;
 
     // Property constructors
-    public Property(String name, String address, String city, int bedroom, double bathroom, double price,
-            int stayLength,
-            boolean isAvailable) {
+    public Property(String name, String address, String city, int bedroom, double bathroom, double price, int stayLength, boolean isAvailable) {
         this.name = name;
         this.address = address;
         this.city = city;
         this.bedroom = bedroom;
         this.bathroom = bathroom;
         this.price = price;
-        this.stayLength = 0;
-        this.isAvailable = true;
+        this.stayLength = stayLength;
+        this.isAvailable = isAvailable;
     }
 
     public Property() {
@@ -110,3 +108,4 @@ public class Property {
 
     }
 }
+
