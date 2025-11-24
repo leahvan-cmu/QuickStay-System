@@ -1,9 +1,16 @@
 package GUI;
 
+import Model.Booking;
 import Model.Property;
+import Model.User;
+import Service.BookingService;
+import Service.PropertyService;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -18,6 +25,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
@@ -27,6 +35,9 @@ public class QuickStayGUI {
 
 	private Scene startScene;
     private Scene viewAllScene;
+    private User user;
+	private BookingService bookingService;
+	private PropertyService propertyService;
 
 	public Scene getStartScene() {
 		return startScene;
@@ -43,8 +54,6 @@ public class QuickStayGUI {
 	public void setViewAllScene(Scene viewAllScene) {
 		this.viewAllScene = viewAllScene;
 	}
-	
-	
 
 	public QuickStayGUI(Scene startScene, Scene viewAllScene) {
 		super();
@@ -104,8 +113,11 @@ public class QuickStayGUI {
 			return tableView;
 	}
 
-public QuickStayGUI(Stage primaryStage) {
-
+public QuickStayGUI(Stage primaryStage, User user, PropertyService propertyService, BookingService bookingService) {
+	this.bookingService = bookingService;
+	this.propertyService = propertyService;
+	this.user = user;
+		
 //CODE TO GET DATA FROM FILE - Chris Cantin
 ObservableList<Property> properties = FXCollections.observableArrayList();
 try (BufferedReader br = new BufferedReader(new FileReader("Resources/CurrentListings.csv"))) {
@@ -179,7 +191,64 @@ goBackBtn1.setOnAction(event -> {
 	primaryStage.setScene(startScene);
 	
 });
+//View bookings - Becca Banks
+class ViewMyBookingsGUI {
+
+ public void show(Stage ownerStage, User user, BookingService bookingService) {
+
+     Stage stage = new Stage();
+     stage.setTitle("My Bookings");
+     stage.initOwner(ownerStage);
+
+     // Get this user's bookings
+     List<Booking> userBookings = bookingService.getBookingsByUser(user);
+
+     TableView<Booking> table = new TableView<>();
+     ObservableList<Booking> bookingList =
+             FXCollections.observableArrayList(userBookings);
+     table.setItems(bookingList);
+
+     TableColumn<Booking, String> colProperty =
+             new TableColumn<>("Property");
+     colProperty.setCellValueFactory(data ->
+             new javafx.beans.property.SimpleStringProperty(
+                     data.getValue().getProperty().getName()));
+
+     TableColumn<Booking, Integer> colDays =
+             new TableColumn<>("Days");
+     colDays.setCellValueFactory(data ->
+             new javafx.beans.property.SimpleIntegerProperty(
+                     data.getValue().getDays()).asObject());
+
+     TableColumn<Booking, Double> colPrice =
+             new TableColumn<>("Total Price");
+     colPrice.setCellValueFactory(data ->
+             new javafx.beans.property.SimpleDoubleProperty(
+                     data.getValue().getTotalPrice()).asObject());
+
+     colProperty.setPrefWidth(125);
+     colDays.setPrefWidth(125);
+     colPrice.setPrefWidth(125);
+     
+     table.getColumns().addAll(colProperty, colDays, colPrice);
+
+     Button closeBtn = new Button("Close");
+     closeBtn.setOnAction(e -> stage.close());
+
+     VBox root = new VBox(10, table, closeBtn);
+     root.setPadding(new Insets(12));
+
+     stage.setScene(new Scene(root, 400, 300));
+     stage.show();
+ }
+}
+//View my bookings btn - Becca Banks
+myBookingsBtn.setOnAction(event -> {
+  ViewMyBookingsGUI viewBookings = new ViewMyBookingsGUI();
+  viewBookings.show(primaryStage, user, bookingService);
+});
 		
 	}
 
 }
+
