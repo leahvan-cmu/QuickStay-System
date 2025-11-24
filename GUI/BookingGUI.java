@@ -5,7 +5,7 @@ import Service.PropertyService;
 import Model.Property;
 import Model.User;
 import Model.Booking;
-
+import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -59,13 +59,36 @@ public class BookingGUI {
                 resultLabel.setText("End date must be after start date.");
                 return;
             }
-            int daysBooked = (int) (endDate.toEpochDay() - startDate.toEpochDay());
-            try {
-                Booking booking = bookingService.createBooking(selectedProperty, user, daysBooked);
-                resultLabel.setText("Booking created\n" + booking.toString());
-            } catch (Exception ex) {
-                resultLabel.setText("Booking failed: " + ex.getMessage());
-            }
+
+            int daysBooked = (int) ((endDate.toEpochDay() - startDate.toEpochDay()) + 1);
+
+            // Disable button to prevent multiple submissions
+            submit.setDisable(true);
+            resultLabel.setText("Processing booking...");
+
+            // Create booking task
+            Task<Booking> bookingTask = new Task<Booking>() {
+                @Override
+                protected Booking call() throws Exception {
+                    Thread.sleep(1000);
+                    return bookingService.createBooking(selectedProperty, user, daysBooked);
+
+                }
+            };
+
+            bookingTask.setOnSucceeded(event -> {
+                Booking booking = bookingTask.getValue();
+                resultLabel.setText("Booking successful \n" + booking.toString());
+                submit.setDisable(false);
+            });
+            bookingTask.setOnFailed(event -> {
+                resultLabel.setText("Booking failed: " + bookingTask.getException().getMessage());
+                submit.setDisable(false);
+            });
+
+            Thread thread = new Thread(bookingTask);
+            thread.setDaemon(true);
+            thread.start();
 
         });
 
