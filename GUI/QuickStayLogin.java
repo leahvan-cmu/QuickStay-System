@@ -1,5 +1,8 @@
 package GUI;
 
+import Model.User;
+import Service.BookingService;
+import Service.PropertyService;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -80,8 +83,11 @@ public class QuickStayLogin extends Application {
             String password = txtPassword.getText();
 
             if (UserStorage.validateLogin(username, password)) {
+                User loggedInUser = new User(username, "", "", password);
+            	PropertyService propertyService = new PropertyService();
+            	BookingService bookingService = new BookingService();
                
-                QuickStayGUI gui = new QuickStayGUI(primaryStage);
+                QuickStayGUI gui = new QuickStayGUI(primaryStage, loggedInUser, propertyService, bookingService);
                 primaryStage.setScene(gui.getStartScene());
                 primaryStage.setTitle("QuickStay - Home");
             } else {
@@ -95,7 +101,6 @@ public class QuickStayLogin extends Application {
         	
         	Stage signUp = new Stage();
         	signUp.setTitle("QuickStay: Create Account");
-
         	
         	GridPane signUpPane = new GridPane();
         	
