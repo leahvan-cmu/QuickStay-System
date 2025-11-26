@@ -1,6 +1,9 @@
 package GUI;
 
 import Model.Property;
+import Model.User;
+import Service.BookingService;
+import Service.PropertyService;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,11 +20,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -29,7 +30,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
@@ -37,6 +37,10 @@ import javafx.util.converter.IntegerStringConverter;
 
 public class QuickStayGUI {
 
+	private User currentUser;
+	private PropertyService propertyService;
+    private BookingService bookingService;
+	
 	private Scene startScene;
     private Scene viewAllScene;
 
@@ -53,14 +57,6 @@ public class QuickStayGUI {
 	}
 
 	public void setViewAllScene(Scene viewAllScene) {
-		this.viewAllScene = viewAllScene;
-	}
-	
-	
-
-	public QuickStayGUI(Scene startScene, Scene viewAllScene) {
-		super();
-		this.startScene = startScene;
 		this.viewAllScene = viewAllScene;
 	}
 
@@ -98,7 +94,7 @@ public class QuickStayGUI {
 			colStayLength.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
 			TableColumn<Property, Boolean> colAvailable = new TableColumn<>("Available?");
-			colAvailable.setCellValueFactory(new PropertyValueFactory<>("Available"));
+			colAvailable.setCellValueFactory(new PropertyValueFactory<>("available"));
 			colAvailable.setCellValueFactory(cellData ->
 		    new SimpleBooleanProperty(cellData.getValue().isAvailable()));
 			colAvailable.setCellFactory(tc -> new CheckBoxTableCell<>());
@@ -122,13 +118,17 @@ public class QuickStayGUI {
 
 public ObservableList<Property> viewList = FXCollections.observableArrayList();
 	
-public QuickStayGUI(Stage primaryStage) {
+public QuickStayGUI(User currentUser, PropertyService propertyService, BookingService bookingService, Stage primaryStage) throws Exception {
+
+this.propertyService = propertyService;
+this.bookingService = bookingService;
+this.currentUser = currentUser;
 
 //CODE TO GET DATA FROM FILE - Chris Cantin
-	ObservableList<Property> properties = FXCollections.observableArrayList();
+ObservableList<Property> properties = FXCollections.observableArrayList();
 	
 
-try (BufferedReader br = new BufferedReader(new FileReader("src/Resources/CurrentListings.csv"))) {
+try (BufferedReader br = new BufferedReader(new FileReader("Resources/CurrentListings.csv"))) {
 	br.readLine();
 
 	String line;	        
@@ -152,6 +152,10 @@ try (BufferedReader br = new BufferedReader(new FileReader("src/Resources/Curren
 	e.printStackTrace();
 }
 
+for (Property p : properties) {
+    propertyService.addProperty(p);
+}
+
 //STARTING SCREEN CODE - Chris Cantin
 FlowPane startPane = new FlowPane();
 startPane.setPadding(new Insets(11,12,13,14));
@@ -165,8 +169,9 @@ Button viewBtn = new Button("View All Listings");
 Button exitBtn = new Button("Exit");
 Button goBackBtn1 = new Button("Go Back");
 Button filterSearchBtn = new Button("Search By Filter");
+Button bookBtn = new Button("Make a Booking");
 
-startPane.getChildren().addAll(viewBtn, filterSearchBtn, exitBtn);
+startPane.getChildren().addAll(viewBtn, filterSearchBtn, bookBtn, exitBtn);
 startScene = new Scene(startPane, 500, 500);
 
 //VIEW ALL LISTINGS - Chris Cantin
@@ -245,7 +250,18 @@ startScene = new Scene(startPane, 500, 500);
 	        primaryStage.setScene(tableScene);
 	        primaryStage.setTitle("All Listings");
 	    });
-		
+
+BookingGUI bookingGUI = new BookingGUI(currentUser, propertyService, bookingService, primaryStage);
+
+bookBtn.setOnAction(event -> {
+    try {
+        Scene bookingScene = bookingGUI.getBooking(currentUser, propertyService, bookingService, primaryStage, startScene);
+        primaryStage.setScene(bookingScene);
+        primaryStage.setTitle("Make a Booking");
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    }
+});
 //Filtered search screen
 		filterSearchBtn.setOnAction(event -> {
 		primaryStage.setScene(filteredSearchScene);

@@ -1,10 +1,11 @@
 package GUI;
 
-import Service.BookingService;
-import Service.PropertyService;
+import Model.Booking;
 import Model.Property;
 import Model.User;
-import Model.Booking;
+import Service.BookingService;
+import Service.PropertyService;
+import java.time.LocalDate;
 import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -14,12 +15,19 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import java.time.LocalDate;
 
 public class BookingGUI {
 
-    public void show(User user, PropertyService propertyService, BookingService bookingService) throws Exception {
+    public BookingGUI(User currentUser, PropertyService propertyService, BookingService bookingService, Stage primaryStage) {
+    }
+    private Scene bookingScene;
 
+    public Scene getBooking(User user, PropertyService propertyService, BookingService bookingService, Stage primaryStage, Scene startScene) throws Exception {
+        
+        Button goBackBtn = new Button("Go Back");
+        goBackBtn.setOnAction(ev -> {
+        primaryStage.setScene(startScene);
+});
         Stage stage = new Stage();
         stage.setTitle("Create Booking");
 
@@ -98,11 +106,11 @@ public class BookingGUI {
         root.getChildren().addAll(
                 new Label("Select Property:"), propertyBox,
                 new Label("Start Date:"), startDatePicker,
-                new Label("End Date:"), endDatePicker, submit, resultLabel);
+                new Label("End Date:"), endDatePicker, submit, resultLabel, goBackBtn);
 
-        Scene scene = new Scene(root, 350, 400);
-        stage.setScene(scene);
-        stage.show();
+        bookingScene = new Scene(root, 350, 400);
+
+        return bookingScene;
 
     }
 

@@ -1,5 +1,8 @@
 package GUI;
 
+import Model.User;
+import Service.BookingService;
+import Service.PropertyService;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -80,10 +83,21 @@ public class QuickStayLogin extends Application {
             String password = txtPassword.getText();
 
             if (UserStorage.validateLogin(username, password)) {
+
                
-                QuickStayGUI gui = new QuickStayGUI(primaryStage);
-                primaryStage.setScene(gui.getStartScene());
-                primaryStage.setTitle("QuickStay - Home");
+    User loggedInUser = new User(username, password, "", "");
+
+    PropertyService propertyService = new PropertyService();
+    BookingService bookingService = new BookingService();
+
+    try {
+        QuickStayGUI gui = new QuickStayGUI(loggedInUser, propertyService, bookingService, primaryStage);
+        primaryStage.setScene(gui.getStartScene());
+        primaryStage.setTitle("QuickStay - Home");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    showAlert(Alert.AlertType.ERROR, "Error", "Failed to open main GUI.");
+                }
             } else {
                 showAlert(AlertType.ERROR, "Login Failed", "Invalid username or password.");
             }

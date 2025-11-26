@@ -1,2 +1,3 @@
 Bob,1,1,USD
 Leah,1234,hieverypony@gmail.com,JPY
+jim,poop,jimpoop@gmail.com,JPY
