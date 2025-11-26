@@ -22,8 +22,7 @@ public class BookingGUI {
     }
     private Scene bookingScene;
 
-    public Scene getBooking(User user, PropertyService propertyService, BookingService bookingService, Stage primaryStage, Scene startScene) throws Exception {
-        
+    public Scene getBooking(User user, PropertyService propertyService, BookingService bookingService, Stage primaryStage, Scene startScene) throws Exception {        
         Button goBackBtn = new Button("Go Back");
         goBackBtn.setOnAction(ev -> {
         primaryStage.setScene(startScene);
@@ -108,7 +107,9 @@ public class BookingGUI {
                 new Label("Start Date:"), startDatePicker,
                 new Label("End Date:"), endDatePicker, submit, resultLabel, goBackBtn);
 
-        bookingScene = new Scene(root, 350, 400);
+        bookingScene = new Scene(root, 350, 500);
+        bookingScene.getStylesheets().add(getClass().getResource("programstyle.css").toExternalForm());
+
 
         return bookingScene;
 

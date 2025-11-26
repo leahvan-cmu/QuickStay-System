@@ -1,5 +1,6 @@
 package GUI;
 
+import Model.Booking;
 import Model.Property;
 import Model.User;
 import Service.BookingService;
@@ -8,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.List;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -30,6 +32,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
@@ -112,6 +115,7 @@ public class QuickStayGUI {
 
 			tableView.getColumns().addAll(colName, colAddress, colCity, colBedroom, colBathroom, colPrice, colStayLength, colAvailable);
 
+
 			return tableView;
 	}
 
@@ -169,10 +173,13 @@ Button viewBtn = new Button("View All Listings");
 Button exitBtn = new Button("Exit");
 Button goBackBtn1 = new Button("Go Back");
 Button filterSearchBtn = new Button("Search By Filter");
+Button myBookingsBtn = new Button("View My Bookings");
 Button bookBtn = new Button("Make a Booking");
 
-startPane.getChildren().addAll(viewBtn, filterSearchBtn, bookBtn, exitBtn);
+startPane.getChildren().addAll(viewBtn, filterSearchBtn, bookBtn, myBookingsBtn, exitBtn);
 startScene = new Scene(startPane, 500, 500);
+startScene.getStylesheets().add(getClass().getResource("programstyle.css").toExternalForm());
+
 
 //VIEW ALL LISTINGS - Chris Cantin
 	BorderPane tablePane = new BorderPane();
@@ -185,7 +192,9 @@ startScene = new Scene(startPane, 500, 500);
 	tablePane.setCenter(tableView);
 	tablePane.setBottom(buttonPane);
 
-	Scene tableScene = new Scene(tablePane, 900, 600);	
+	Scene tableScene = new Scene(tablePane, 900, 600);
+	tableScene.getStylesheets().add(getClass().getResource("programstyle.css").toExternalForm());
+	
 	
 	
 	//FilteredSearch scene Avery
@@ -220,27 +229,39 @@ startScene = new Scene(startPane, 500, 500);
 		
 		filterPane.add(new Label("Maximum Price: "), 0, 0);
 		filterPane.add(priceSlider, 1, 0);
+		filterPane.setMargin(priceSlider, new Insets(10, 0, 10 ,0));
 		filterPane.add(priceValue, 2, 0);
+		filterPane.setMargin(priceValue, new Insets(10, 0, 10 ,10));
 		filterPane.add(new Label("Select City: "), 0, 1);
 		ComboBox<String> citySelect = new ComboBox<String>();
 		citySelect.getItems().addAll("Any", "Mt. Pleasant", "Midland", "Lansing", "Grand Rapids", "Mackinac Island", "Detroit", "Ann Arbor", "Traverse City");
 		citySelect.setValue("Any");
     		filterPane.add(citySelect, 1, 1);
+			filterPane.setMargin(citySelect, new Insets(10, 0, 10 ,0));
 		filterPane.add(new Label("Minimum Bedrooms: "), 0, 2);
 		filterPane.add(bedSlider, 1, 2);
+		filterPane.setMargin(bedSlider, new Insets(10, 0, 10 ,0));
 		filterPane.add(new Label("Include non-vacant: "), 0, 3);
 		CheckBox includeNonvacant = new CheckBox();
 		filterPane.add(includeNonvacant, 1, 3);
+		filterPane.setMargin(includeNonvacant, new Insets(10, 0, 10 ,0));
+
 		
 		Button searchBtn = new Button("Search");
 		Button goBackBtn2 = new Button("Go Back");
-		
+
+	
 		filterPane.add(searchBtn, 0, 4);
 		filterPane.add(goBackBtn2, 1, 4);
-		
+
+		filterPane.setMargin(searchBtn, new Insets(10, 0, 10 ,0));
+		filterPane.setMargin(goBackBtn2, new Insets(10, 0, 10, 0));
+
 		
 	    
 	    Scene filteredSearchScene = new Scene (filterPane, 500, 500);
+		filteredSearchScene.getStylesheets().add(getClass().getResource("programstyle.css").toExternalForm());
+
 	
 	
 //BUTTON CODE TO GET TO INDIVIDUAL SCENES - Chris Cantin
@@ -316,10 +337,68 @@ bookBtn.setOnAction(event -> {
 		
 	});
 	goBackBtn2.setOnAction(event -> {
-		primaryStage.setScene(startScene);
-		
+		primaryStage.setScene(startScene);		
 	});
+
+	//View my bookings btn - Becca Banks
+myBookingsBtn.setOnAction(event -> {
+	ViewMyBookingsGUI viewBookings = new ViewMyBookingsGUI();
+	viewBookings.show(primaryStage, currentUser, bookingService);
+  });
+}
+
+	//View bookings - Becca Banks
+class ViewMyBookingsGUI {
+
+ public void show(Stage ownerStage, User user, BookingService bookingService) {
+
+     Stage stage = new Stage();
+     stage.setTitle("My Bookings");
+     stage.initOwner(ownerStage);
+
+     // Get this user's bookings
+     List<Booking> userBookings = bookingService.getBookingsByUser(user);
+
+     TableView<Booking> table = new TableView<>();
+     ObservableList<Booking> bookingList =
+             FXCollections.observableArrayList(userBookings);
+     table.setItems(bookingList);
+
+     TableColumn<Booking, String> colProperty =
+             new TableColumn<>("Property");
+     colProperty.setCellValueFactory(data ->
+             new javafx.beans.property.SimpleStringProperty(
+                     data.getValue().getProperty().getName()));
+
+     TableColumn<Booking, Integer> colDays =
+             new TableColumn<>("Days");
+     colDays.setCellValueFactory(data ->
+             new javafx.beans.property.SimpleIntegerProperty(
+                     data.getValue().getDays()).asObject());
+
+     TableColumn<Booking, Double> colPrice =
+             new TableColumn<>("Total Price");
+     colPrice.setCellValueFactory(data ->
+             new javafx.beans.property.SimpleDoubleProperty(
+                     data.getValue().getTotalPrice()).asObject());
+
+     colProperty.setPrefWidth(125);
+     colDays.setPrefWidth(125);
+     colPrice.setPrefWidth(125);
+     
+     table.getColumns().addAll(colProperty, colDays, colPrice);
+
+     Button closeBtn = new Button("Close");
+     closeBtn.setOnAction(e -> stage.close());
+
+     VBox root = new VBox(10, table, closeBtn);
+     root.setPadding(new Insets(12));
+
+     stage.setScene(new Scene(root, 400, 300));
+	 root.getStylesheets().add(getClass().getResource("programstyle.css").toExternalForm());
+
+     stage.show();
+ }
+}
 		
 	}
-
-}

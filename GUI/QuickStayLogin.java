@@ -142,9 +142,7 @@ public class QuickStayLogin extends Application {
               accountHBox.setAlignment(Pos.BOTTOM_CENTER);
         	
               signUpPane.add(accountHBox, 0, 16);
-        	
 
-            
             btnCreateAcc.setOnAction(e1 -> {
             	String username = createUsername.getText();
             	String password = createPassword.getText();
@@ -167,9 +165,14 @@ public class QuickStayLogin extends Application {
             });
 
             
-        	Scene signUpScene = new Scene(signUpPane, 300, 300);
+        	Scene signUpScene = new Scene(signUpPane, 400, 400);
         	signUp.setScene(signUpScene);
+            signUpScene.getStylesheets().add(getClass().getResource("programstyle.css").toExternalForm());
         	signUp.show();
+
+            btnClose.setOnAction(event -> {
+                signUp.close();
+            });
 
         });
 
