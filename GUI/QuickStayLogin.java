@@ -73,6 +73,7 @@ public class QuickStayLogin extends Application {
 
         primaryStage.setTitle("QuickStay");
         primaryStage.setScene(scene);
+        scene.getStylesheets().add(getClass().getResource("programstyle.css").toExternalForm());
         primaryStage.show();
 
         // --- Button SHIT --- 

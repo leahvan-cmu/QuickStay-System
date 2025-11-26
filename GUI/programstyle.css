@@ -29,6 +29,14 @@
     -fx-text-fill: #FFD700;
 }
 
+.password-field {
+    -fx-text-fill: #111927;
+}
+
+.text-field {
+    -fx-text-fill: #111927;
+}
+
 .date-picker .text-field {
     -fx-text-fill: #111927;
 }
