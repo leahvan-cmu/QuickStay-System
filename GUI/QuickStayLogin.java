@@ -1,8 +1,8 @@
 package GUI;
 
+import Service.PropertyService;
 import Model.User;
 import Service.BookingService;
-import Service.PropertyService;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -73,7 +73,6 @@ public class QuickStayLogin extends Application {
 
         primaryStage.setTitle("QuickStay");
         primaryStage.setScene(scene);
-        scene.getStylesheets().add(getClass().getResource("programstyle.css").toExternalForm());
         primaryStage.show();
 
         // --- Button SHIT --- 
@@ -85,16 +84,19 @@ public class QuickStayLogin extends Application {
 
             if (UserStorage.validateLogin(username, password)) {
 
-               
-    User loggedInUser = new User(username, password, "", "");
+                // Get user's preferred currency from users.txt
+                String userCurrency = UserStorage.getUserCurrency(username);
 
-    PropertyService propertyService = new PropertyService();
-    BookingService bookingService = new BookingService();
+                
+                User loggedInUser = new User(username, "", userCurrency, password);
 
-    try {
-        QuickStayGUI gui = new QuickStayGUI(loggedInUser, propertyService, bookingService, primaryStage);
-        primaryStage.setScene(gui.getStartScene());
-        primaryStage.setTitle("QuickStay - Home");
+                PropertyService propertyService = new PropertyService();
+                BookingService bookingService = new BookingService();
+
+                try {
+                    QuickStayGUI gui = new QuickStayGUI(loggedInUser, propertyService, bookingService, primaryStage);
+                    primaryStage.setScene(gui.getStartScene());
+                    primaryStage.setTitle("QuickStay - Home");
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     showAlert(Alert.AlertType.ERROR, "Error", "Failed to open main GUI.");
@@ -126,7 +128,7 @@ public class QuickStayLogin extends Application {
         	signUpPane.add(emailField, 1, 2);
         	
         	ComboBox<String> currency = new ComboBox<String>();
-        	currency.getItems().addAll("USD", "CAD", "AUD", "EURO", "GBP", "JPY");
+        	currency.getItems().addAll("USD", "CAD", "AUD", "EUR", "GBP", "JPY");
         	currency.setValue("USD");
         	signUpPane.add(currency, 1, 3);
         	signUpPane.add(new Label("Local Currency"), 0, 3);
@@ -143,7 +145,9 @@ public class QuickStayLogin extends Application {
               accountHBox.setAlignment(Pos.BOTTOM_CENTER);
         	
               signUpPane.add(accountHBox, 0, 16);
+        	
 
+            
             btnCreateAcc.setOnAction(e1 -> {
             	String username = createUsername.getText();
             	String password = createPassword.getText();
@@ -165,15 +169,14 @@ public class QuickStayLogin extends Application {
             	}
             });
 
-            
-        	Scene signUpScene = new Scene(signUpPane, 400, 400);
-        	signUp.setScene(signUpScene);
-            signUpScene.getStylesheets().add(getClass().getResource("programstyle.css").toExternalForm());
-        	signUp.show();
-
-            btnClose.setOnAction(event -> {
-                signUp.close();
+            btnClose.setOnAction(e1 -> {
+            	signUp.close();
+         
             });
+            
+        	Scene signUpScene = new Scene(signUpPane, 300, 300);
+        	signUp.setScene(signUpScene);
+        	signUp.show();
 
         });
 
@@ -185,7 +188,7 @@ public class QuickStayLogin extends Application {
     }
 
     //show alerts
-    private void showAlert(AlertType type, String title, String message) {
+    public static void showAlert(AlertType type, String title, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setContentText(message);
