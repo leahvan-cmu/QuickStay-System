@@ -2,6 +2,7 @@ package GUI;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -9,7 +10,7 @@ import java.io.IOException;
 
 public class UserStorage {
 
-    private static final String USER_FILE = "Resources/users.txt";
+    private static final String USER_FILE = "users.txt";
 
     // Register a new user. Returns true if success, false if username already exists.
     public static boolean registerUser(String username, String password, String email, String userCurrency) {
@@ -49,7 +50,7 @@ public class UserStorage {
           return true;
     }
 
-    // Check login. Returns true if username+password match a record.
+    // Check login. Returns true if username+password match
     public static boolean validateLogin(String username, String password) {
     	
         if (username == null || password == null) {
@@ -77,7 +78,86 @@ public class UserStorage {
 			}
         return false;
     }
+    
+    
+    
+    
+    public static boolean updateUser(String oldUsername, String newUsername, String newPassword, 
+            String newEmail, String newCurrency) {
+
+    		if (oldUsername == null || oldUsername.isBlank()) {
+    			return false; }
+
+    			File tempFile = new File("users_temp.txt");
+    			File originalFile = new File("users.txt");
+
+    		boolean userFound = false;
+
+    		try (BufferedReader br = new BufferedReader(new FileReader(originalFile));
+    				
+    		BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
+    			String line;
+
+    			while ((line = br.readLine()) != null) {
+    					String[] parts = line.split(",", 4);
+    					
+    					if (parts.length == 4) {
+    						String existingUser = parts[0].trim();
+
+    						if (existingUser.equalsIgnoreCase(oldUsername.trim())) {
+    						
+    							userFound = true;
+    							String updatedLine = newUsername.trim() + "," + newPassword + "," + newEmail.trim() + "," + newCurrency;
+    							bw.write(updatedLine);
+    							bw.newLine();
+    							} else {
+    								bw.write(line);
+    								bw.newLine();
+    							}
+    					}
+    			}
+
+    		} catch (IOException e) {
+    			e.printStackTrace();
+    			return false;
+    		}
+
+    		// Replace old file with updated file
+    		if (userFound) {
+    			originalFile.delete();
+    			tempFile.renameTo(originalFile);
+    		} else {
+    			tempFile.delete();
+    		}
+
+    		return userFound;
+    }
+    
+    
+    
+    public static String getUserCurrency(String username) {
+        if (username == null || username.isBlank()) {
+            return "USD"; // default
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(USER_FILE))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",", 4);
+                if (parts.length == 4) {
+                    String fileUsername = parts[0].trim();
+                    String currency = parts[3].trim(); // get currency, last thing stored in user data
+                    if (fileUsername.equalsIgnoreCase(username.trim())) {
+                        return currency;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "USD"; // if errors in getting currency display USD
+    }
 
 
 }
-
