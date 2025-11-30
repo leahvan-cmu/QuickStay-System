@@ -1,7 +1,7 @@
 package GUI;
 
 import Model.Booking;
-import Model.Currency;
+import Adapter.Currency;
 import Model.Property;
 import Model.User;
 import Service.BookingService;
@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import Adapter.CurrencyAdapter;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -131,12 +132,12 @@ public class QuickStayGUI {
         this.currentUser = currentUser;
 
         // Use the adapter based on the user's currency code
-        this.currency = Model.CurrencyAdapter.get(currentUser.getCurrency());
+        this.currency = Adapter.CurrencyAdapter.get(currentUser.getCurrency());
 
         // CODE TO GET DATA FROM FILE - Chris Cantin
         ObservableList<Property> properties = FXCollections.observableArrayList();
 
-        try (BufferedReader br = new BufferedReader(new FileReader("CurrentListings.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("src/Resources/CurrentListings.csv"))) {
             br.readLine();
 
             String line;
@@ -175,12 +176,12 @@ public class QuickStayGUI {
 
         startPane.setAlignment(Pos.CENTER);
 
-        Button viewBtn = new Button("View All Listings");
-        Button exitBtn = new Button("Exit");
-        Button goBackBtn1 = new Button("Go Back");
-        Button filterSearchBtn = new Button("Search By Filter");
-        Button myBookingsBtn = new Button("View My Bookings");
-        Button bookBtn = new Button("Make a Booking");
+        Button viewBtn = new Button("View All Listings");	//Chris
+        Button exitBtn = new Button("Exit");	//Chris
+        Button goBackBtn1 = new Button("Go Back");	//Chris
+        Button filterSearchBtn = new Button("Search By Filter");	//Avery
+        Button myBookingsBtn = new Button("View My Bookings");	//Becca
+        Button bookBtn = new Button("Make a Booking");	//Leah
         Button editAccBtn = new Button("Edit Account");   //Ethan
 
         // 
@@ -207,13 +208,12 @@ public class QuickStayGUI {
         filterPane.setAlignment(Pos.CENTER);
 
         Slider priceSlider = new Slider();
-        priceSlider.setMin(120);
-        priceSlider.setMax(780);
+        priceSlider.setMin(currency.fromUsd(120));
+        priceSlider.setMax(currency.fromUsd(780));
         priceSlider.setValue(780);
+        Label priceValue = new Label("Price: " + currency.fromUsd(780));
 
-        Label priceValue = new Label("Price: 780");
-
-        // Code provided from GeeksForGeeks
+        // Live number update code provided from GeeksForGeeks
         priceSlider.valueProperty().addListener(
                 new ChangeListener<Number>() {
                     public void changed(ObservableValue<? extends Number> observable,
@@ -280,12 +280,12 @@ public class QuickStayGUI {
             }
         });
 
-        // Filtered search screen
+        // Filtered search screen -Avery
         filterSearchBtn.setOnAction(event -> {
             primaryStage.setScene(filteredSearchScene);
         });
 
-        // Filter search logic
+        // Filter search logic -Avery
         searchBtn.setOnAction(event -> {
             LinkedList<Property> filteredProps = new LinkedList<>();
             // Add all properties that fall into price tolerance
@@ -332,6 +332,7 @@ public class QuickStayGUI {
         goBackBtn1.setOnAction(event -> {
             primaryStage.setScene(startScene);
         });
+        // Avery
         goBackBtn2.setOnAction(event -> {
             primaryStage.setScene(startScene);
         });
