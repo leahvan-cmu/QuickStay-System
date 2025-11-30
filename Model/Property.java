@@ -103,9 +103,10 @@ public class Property {
     // toString method
     public String toString() {
         return "Property Name - " + name + " Address: " + address + ", " + city + ", " + bedroom
-                + " Bedrooms " + bathroom + " Bathrooms $" + price + " per night (USD), Vacancy: "
+                + " Bedrooms " + bathroom + " Bathrooms $" + price + " per night, Vacancy: "
                 + isAvailable;
 
     }
 }
+
 
