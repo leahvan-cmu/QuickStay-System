@@ -88,8 +88,8 @@ public class UserStorage {
     		if (oldUsername == null || oldUsername.isBlank()) {
     			return false; }
 
-    			File tempFile = new File("users_temp.txt");
-    			File originalFile = new File("users.txt");
+    			File tempFile = new File("src/Resources/users_temp.txt");
+    			File originalFile = new File("src/Resources/users.txt");
 
     		boolean userFound = false;
 
@@ -161,4 +161,5 @@ public class UserStorage {
 
 
 }
+
 
